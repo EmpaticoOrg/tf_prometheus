@@ -47,3 +47,9 @@ variable "role" {
 output "jenkins_host_address" {
   value = ["${aws_eip.jenkins.public_ip}"]
 }
+
+output "jenkins_private_address" {
+  value = ["${aws_instance.jenkins.private_ip}"]
+}
+
+
