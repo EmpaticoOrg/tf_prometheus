@@ -51,5 +51,3 @@ output "jenkins_host_address" {
 output "jenkins_private_address" {
   value = ["${aws_instance.jenkins.private_ip}"]
 }
-
-

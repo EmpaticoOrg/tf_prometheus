@@ -3,7 +3,7 @@ data "aws_vpc" "environment" {
 }
 
 data "aws_route53_zone" "domain" {
-    name = "${var.domain}."
+  name = "${var.domain}."
 }
 
 resource "aws_instance" "jenkins" {
@@ -26,15 +26,15 @@ resource "aws_instance" "jenkins" {
 }
 
 resource "aws_eip" "jenkins" {
-    instance = "${aws_instance.jenkins.id}"
-      vpc      = true
-    }
+  instance = "${aws_instance.jenkins.id}"
+  vpc      = true
+}
 
 resource "aws_route53_record" "web" {
   zone_id = "${data.aws_route53_zone.domain.zone_id}"
   name    = "jenkins.${data.aws_route53_zone.domain.name}"
   type    = "A"
-  ttl = "300"
+  ttl     = "300"
   records = ["${aws_eip.jenkins.public_ip}"]
 }
 
