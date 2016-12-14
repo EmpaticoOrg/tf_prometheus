@@ -10,7 +10,7 @@ resource "aws_instance" "jenkins" {
   ami           = "${lookup(var.ami, var.region)}"
   instance_type = "${var.instance_type}"
   key_name      = "${var.key_name}"
-  subnet_id     = "${var.public_subnet_ids}"
+  subnet_id     = "${var.public_subnet_id}"
   user_data     = "${file("${path.module}/files/jenkins_bootstrap.sh")}"
 
   vpc_security_group_ids = [
