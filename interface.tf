@@ -1,7 +1,3 @@
-variable "region" {
-  description = "The AWS region."
-}
-
 variable "environment" {
   description = "The name of our environment, i.e. development."
 }
@@ -12,15 +8,6 @@ variable "key_name" {
 
 variable "public_subnet_id" {
   description = "The public subnet to populate."
-}
-
-variable "ami" {
-  default = {
-    "us-east-1" = "ami-f652979b"
-    "us-west-1" = "ami-7c4b331c"
-  }
-
-  description = "The AMIs to use for instances."
 }
 
 variable "instance_type" {

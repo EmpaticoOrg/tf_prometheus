@@ -2,12 +2,21 @@ data "aws_vpc" "environment" {
   id = "${var.vpc_id}"
 }
 
+data "aws_ami" "base_ami" {
+  filter {
+    name   = "tag:Role"
+    values = ["base"]
+  }
+
+  most_recent = true
+}
+
 data "aws_route53_zone" "domain" {
   name = "${var.domain}."
 }
 
 resource "aws_instance" "jenkins" {
-  ami           = "${lookup(var.ami, var.region)}"
+  ami           = "${data.aws_ami.base_ami.id}"
   instance_type = "${var.instance_type}"
   key_name      = "${var.key_name}"
   subnet_id     = "${var.public_subnet_id}"
@@ -18,10 +27,8 @@ resource "aws_instance" "jenkins" {
   ]
 
   tags {
-    Name    = "${var.environment}-${var.app}-${var.role}"
-    Project = "${var.app}"
-    Stages  = "${var.environment}"
-    Roles   = "${var.role}"
+    Name = "${var.environment}-${var.app}-${var.role}"
+    Role = "${var.role}"
   }
 }
 
