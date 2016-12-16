@@ -1,12 +1,12 @@
-# Empatico.org Jenkins module for Terraform
+# Empatico.org Prometheus module for Terraform
 
-A lightweight Jenkins service module.
+A Prometheus module.
 
 ## Usage
 
 ```hcl
-module "jenkins" {
-  source             = "github.com/EmpaticoOrg/tf_jenkins"
+module "prometheus" {
+  source             = "github.com/EmpaticoOrg/tf_prometheus"
   environment        = "${var.environment}"
   vpc_id             = "${data.terraform_remote_state.vpc.vpc_id}"
   public_subnet_id   = "${data.terraform_remote_state.vpc.public_subnet_ids.2}"
