@@ -33,7 +33,7 @@ resource "aws_instance" "prometheus" {
   key_name             = "${var.key_name}"
   subnet_id            = "${var.public_subnet_id}"
   user_data            = "${file("${path.module}/files/prometheus_bootstrap.sh")}"
-  iam_instance_profile = "${aws_iam_instance_profile.prometheus}"
+  iam_instance_profile = "${aws_iam_instance_profile.prometheus.name}"
 
   vpc_security_group_ids = [
     "${aws_security_group.prometheus_host_sg.id}",
