@@ -31,10 +31,6 @@ variable "role" {
   description = "Role of servers"
 }
 
-variable "prometheus_sg" {
-  description = "Prometheus security group"
-}
-
 output "jenkins_host_address" {
   value = ["${aws_eip.jenkins.public_ip}"]
 }
