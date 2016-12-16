@@ -24,6 +24,7 @@ resource "aws_instance" "jenkins" {
 
   vpc_security_group_ids = [
     "${aws_security_group.jenkins_host_sg.id}",
+    "${var.prometheus_sg}"
   ]
 
   tags {
