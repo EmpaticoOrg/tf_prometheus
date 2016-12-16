@@ -14,6 +14,7 @@ data "aws_security_group" "prometheus" {
   filter {
     name = "tag:Name"
     values = ["${var.environment}-prometheus-sg"]
+  }
 }
 
 data "aws_route53_zone" "domain" {
