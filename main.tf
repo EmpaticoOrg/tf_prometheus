@@ -7,12 +7,13 @@ data "aws_ami" "base_ami" {
     name   = "tag:Role"
     values = ["base"]
   }
+
   most_recent = true
 }
 
 data "aws_security_group" "prometheus" {
   filter {
-    name = "tag:Name"
+    name   = "tag:Name"
     values = ["${var.environment}-prometheus-sg"]
   }
 }
@@ -21,17 +22,22 @@ data "aws_route53_zone" "domain" {
   name = "${var.domain}."
 }
 
+resource "aws_iam_instance_profile" "prometheus" {
+  name  = "${var.environment}-prometheus"
+  roles = ["PrometheusRead"]
+}
 
 resource "aws_instance" "prometheus" {
-  ami           = "${data.aws_ami.base_ami.id}"
-  instance_type = "${var.instance_type}"
-  key_name      = "${var.key_name}"
-  subnet_id     = "${var.public_subnet_id}"
-  user_data     = "${file("${path.module}/files/prometheus_bootstrap.sh")}"
+  ami                  = "${data.aws_ami.base_ami.id}"
+  instance_type        = "${var.instance_type}"
+  key_name             = "${var.key_name}"
+  subnet_id            = "${var.public_subnet_id}"
+  user_data            = "${file("${path.module}/files/prometheus_bootstrap.sh")}"
+  iam_instance_profile = "${aws_iam_instance_profile.prometheus}"
 
   vpc_security_group_ids = [
     "${aws_security_group.prometheus_host_sg.id}",
-    "${data.aws_security_group.prometheus.id}"
+    "${data.aws_security_group.prometheus.id}",
   ]
 
   tags {
