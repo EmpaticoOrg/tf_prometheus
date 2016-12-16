@@ -7,13 +7,19 @@ data "aws_ami" "base_ami" {
     name   = "tag:Role"
     values = ["base"]
   }
-
   most_recent = true
+}
+
+data "aws_security_group" "prometheus" {
+  filter {
+    name = "tag:Name"
+    values = ["${var.environment}-prometheus-sg"]
 }
 
 data "aws_route53_zone" "domain" {
   name = "${var.domain}."
 }
+
 
 resource "aws_instance" "jenkins" {
   ami           = "${data.aws_ami.base_ami.id}"
@@ -24,7 +30,7 @@ resource "aws_instance" "jenkins" {
 
   vpc_security_group_ids = [
     "${aws_security_group.jenkins_host_sg.id}",
-    "${var.prometheus_sg}"
+    "${data.aws_security_group.prometheus.id}"
   ]
 
   tags {
