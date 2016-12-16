@@ -31,10 +31,10 @@ variable "role" {
   description = "Role of servers"
 }
 
-output "jenkins_host_address" {
+output "prometheus_host_address" {
   value = ["${aws_eip.prometheus.public_ip}"]
 }
 
-output "jenkins_private_address" {
+output "prometheus_private_address" {
   value = ["${aws_instance.prometheus.private_ip}"]
 }
