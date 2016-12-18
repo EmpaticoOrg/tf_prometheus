@@ -71,6 +71,14 @@ resource "aws_security_group" "prometheus_host_sg" {
     cidr_blocks = ["${data.aws_vpc.environment.cidr_block}"]
   }
 
+  # Collectd exporter
+  ingress {
+    from_port   = 25826
+    to_port     = 25826
+    protocol    = "tcp"
+    cidr_blocks = ["${data.aws_vpc.environment.cidr_block}"]
+  }
+
   # HTTP access from the VPC
   ingress {
     from_port   = 9090
