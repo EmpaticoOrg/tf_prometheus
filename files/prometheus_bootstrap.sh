@@ -14,4 +14,4 @@ class { '::prometheus::collectd_exporter': }
 EOF
 
 echo "Running Puppet..."
-sudo /opt/puppetlabs/bin/puppet apply /tmp/puppet.pp
+sudo /opt/puppetlabs/bin/puppet apply --modulepath /etc/puppetlabs/code/environments/production/modules /tmp/puppet.pp
