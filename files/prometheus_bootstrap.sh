@@ -2,6 +2,8 @@
 
 set -e
 
+sudo /opt/puppetlabs/bin/puppet module install jamtur01-prometheus
+
 cat >/tmp/puppet.pp << "EOF"
 class { '::prometheus':
   global_config  => { 'scrape_interval' => '5s', 'evaluation_interval' => '15s', 'external_labels' => { 'monitor' => 'primary'}},
