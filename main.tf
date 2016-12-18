@@ -75,7 +75,7 @@ resource "aws_security_group" "prometheus_host_sg" {
   ingress {
     from_port   = 25826
     to_port     = 25826
-    protocol    = "tcp"
+    protocol    = "udp"
     cidr_blocks = ["${data.aws_vpc.environment.cidr_block}"]
   }
 
