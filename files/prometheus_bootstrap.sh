@@ -11,6 +11,8 @@ class { '::prometheus':
 }
 
 class { '::prometheus::collectd_exporter': }
+
+class { 'grafana': version => '4.0.2-1481203731', }
 EOF
 
 echo "Running Puppet..."
