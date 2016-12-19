@@ -23,8 +23,8 @@ data "aws_route53_zone" "domain" {
 }
 
 resource "aws_iam_instance_profile" "prometheus" {
-  name  = "${var.environment}-prometheus"
-  roles = ["PrometheusRead", "ConsulInit"]
+  name_prefix = "${var.environment}-prometheus"
+  roles       = ["PrometheusRead", "ConsulInit"]
 }
 
 resource "aws_instance" "prometheus" {
