@@ -94,13 +94,6 @@ resource "aws_security_group" "prometheus_host_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 8
-    to_port     = 0
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   tags {
     Name = "${var.environment}-${var.app}-${var.role}-host-sg"
   }
